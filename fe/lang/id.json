@@ -1,0 +1,14 @@
+{
+    "AUTH_IS_REQUIRED": "Login terlebih dahulu",
+    "FIELD_IS_REQUIRED": "{field} harus diisi",
+    "EMAIL_INVALID": "Format email tidak valid",
+    "FIELD_MIN": "{field} minimal {min} karakter",
+    "FIELD_CONFIRM": "Isi {confirm} tidak sama dengan {field}",
+    "WRONG_PASSWORD": "Password salah",
+    "EMAIL_NOT_FOUND": "Email tidak ditemukan",
+    "EMAIL_IS_EXIST": "Email sudah terdaftar",
+    "ADD_SUCCESS": "Data {title} berhasil ditambahkan",
+    "DELETE_SUCCESS": "Data {title} berhasil dihapus",
+    "UPDATE_SUCCESS": "Data {title} berhasil diubah",
+    "UPDATE_FAILED": "Data {title} gagal diubah"
+}
