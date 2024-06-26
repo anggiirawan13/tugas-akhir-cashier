@@ -20,12 +20,13 @@
               :rules="rules.productName"
               v-model="form.product_name"
             />
-            <v-text-field
+            <v-file-input
               name="thumbnail"
               label="Thumbnail"
               type="text"
               :rules="rules.thumbnail"
               v-model="form.thumbnail"
+              accept="image/*"
             />
             <v-text-field
               name="price"
@@ -117,8 +118,21 @@ export default {
       if (this.$refs.form.validate()) {
         this.btnSaveDisable = true;
 
+        let formData = new FormData();
+        formData.append('product_code', this.form.product_code);
+        formData.append('product_name', this.form.product_name);
+        formData.append('thumbnail', this.form.thumbnail);
+        formData.append('stock', this.form.stock);
+        formData.append('category_id', this.form.category_id);
+        formData.append('price', this.form.price);
+        formData.append('status', this.form.status);
+
         await this.$axios
-          .$post("/product", this.form)
+            .$post("/product", formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
           .then(() => {
             this.$router.push({
               name: `product___${this.$i18n.locale}`,
