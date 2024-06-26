@@ -5,8 +5,6 @@ import com.be.app.dto.request.ProductUpdateRequest;
 import com.be.app.dto.response.BaseResponse;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 public interface ProductService {
 
     BaseResponse saveProduct(ProductInsertRequest request, MultipartFile file);
