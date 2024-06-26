@@ -18,7 +18,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +37,23 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public BaseResponse saveProduct(ProductInsertRequest productRequest) {
+    public BaseResponse saveProduct(ProductInsertRequest productRequest, MultipartFile file) {
         try {
+            File uploadDir = new File("./");
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String fileName = file.getOriginalFilename();
+            String fullPath = "./" + fileName;
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(fullPath);
+            Files.write(path, bytes);
+
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/v1/files/download/")
+                    .path(fileName)
+                    .toUriString();
 
             ProductEntity newProduct = new ProductEntity();
             newProduct.setUuid(UUID.randomUUID().toString());
@@ -40,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
             newProduct.setProductName(productRequest.getProductName());
             newProduct.setPrice(productRequest.getPrice());
             newProduct.setStock(productRequest.getStock());
-            newProduct.setThumbnail(productRequest.getThumbnail());
+            newProduct.setThumbnail(fileDownloadUri);
             newProduct.setCategoryID(productRequest.getCategoryID());
 
             if (productRequest.getStatus().equalsIgnoreCase("active")) {
@@ -65,18 +86,34 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public BaseResponse updateProductByUUID(String uuid, ProductUpdateRequest productRequest) {
+    public BaseResponse updateProductByUUID(String uuid, ProductUpdateRequest productRequest, MultipartFile file) {
         try {
             ProductEntity oldProduct = productRepository.findByUUID(uuid);
             if (NullEmptyChecker.isNullOrEmpty(oldProduct)) {
                 return new BaseResponse(false, ResponseMessagesConst.DATA_NOT_FOUND.toString(), null);
             }
 
+            File uploadDir = new File("./");
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String fileName = file.getOriginalFilename();
+            String fullPath = "./" + fileName;
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(fullPath);
+            Files.write(path, bytes);
+
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/api/v1/files/download/")
+                    .path(fileName)
+                    .toUriString();
+
             ProductEntity updateProduct = productRepository.findByUUID(uuid);
             updateProduct.setProductCode(productRequest.getProductCode());
             updateProduct.setProductName(productRequest.getProductName());
             updateProduct.setPrice(productRequest.getPrice());
-            updateProduct.setThumbnail(productRequest.getThumbnail());
+            updateProduct.setThumbnail(fileDownloadUri);
             updateProduct.setStock(productRequest.getStock());
             updateProduct.setCategoryID(productRequest.getCategoryID());
 
