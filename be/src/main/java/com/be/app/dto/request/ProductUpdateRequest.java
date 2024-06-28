@@ -14,9 +14,6 @@ public class ProductUpdateRequest {
     @JsonProperty(value = "product_name")
     private String productName;
 
-    @JsonProperty(value = "thumbnail")
-    private String thumbnail;
-
     @JsonProperty(value = "price")
     private double price;
 

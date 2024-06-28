@@ -38,19 +38,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public BaseResponse saveProduct(ProductInsertRequest productRequest, MultipartFile file) {
         try {
-            File uploadDir = new File("./");
+            File uploadDir = new File("./src/main/java/com/be/assets/images");
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
             String fileName = file.getOriginalFilename();
-            String fullPath = "./" + fileName;
+            String fullPath = "./src/main/java/com/be/assets/images/" + fileName;
             byte[] bytes = file.getBytes();
             Path path = Paths.get(fullPath);
             Files.write(path, bytes);
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/api/v1/files/download/")
+                    .path("/product/download/")
                     .path(fileName)
                     .toUriString();
 
@@ -92,19 +92,19 @@ public class ProductServiceImpl implements ProductService {
                 return new BaseResponse(false, ResponseMessagesConst.DATA_NOT_FOUND.toString(), null);
             }
 
-            File uploadDir = new File("./");
+            File uploadDir = new File("./src/main/java/com/be/assets/images");
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
 
             String fileName = file.getOriginalFilename();
-            String fullPath = "./" + fileName;
+            String fullPath = "./src/main/java/com/be/assets/images/" + fileName;
             byte[] bytes = file.getBytes();
             Path path = Paths.get(fullPath);
             Files.write(path, bytes);
 
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/api/v1/files/download/")
+                    .path("/product/download/")
                     .path(fileName)
                     .toUriString();
 

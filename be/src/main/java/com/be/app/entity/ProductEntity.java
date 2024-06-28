@@ -26,7 +26,7 @@ public class ProductEntity extends BaseEntity {
     @JsonProperty("product_name")
     private String productName;
 
-    @Column(name = "thumbnail", length = 50)
+    @Column(name = "thumbnail", length = 256)
     @JsonProperty("thumbnail")
     private String thumbnail;
 

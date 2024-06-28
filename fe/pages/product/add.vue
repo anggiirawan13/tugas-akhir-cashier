@@ -23,7 +23,6 @@
             <v-file-input
               name="thumbnail"
               label="Thumbnail"
-              type="text"
               :rules="rules.thumbnail"
               v-model="form.thumbnail"
               accept="image/*"
@@ -119,13 +118,20 @@ export default {
         this.btnSaveDisable = true;
 
         let formData = new FormData();
-        formData.append('product_code', this.form.product_code);
-        formData.append('product_name', this.form.product_name);
         formData.append('thumbnail', this.form.thumbnail);
-        formData.append('stock', this.form.stock);
-        formData.append('category_id', this.form.category_id);
-        formData.append('price', this.form.price);
-        formData.append('status', this.form.status);
+
+        let productData = {
+          product_code: this.form.product_code,
+          product_name: this.form.product_name,
+          stock: this.form.stock,
+          category_id: this.form.category_id,
+          price: this.form.price,
+          status: this.form.status
+        };
+
+        formData.append('product', new Blob([JSON.stringify(productData)], {
+          type: 'application/json'
+        }));
 
         await this.$axios
             .$post("/product", formData, {

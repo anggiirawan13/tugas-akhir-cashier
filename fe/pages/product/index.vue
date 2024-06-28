@@ -40,7 +40,7 @@
                 <v-card>
                   <v-card-title
                     >Kamu yakin ingin menghapus data
-                    {{ itemDelete.title }}?</v-card-title
+                    {{ itemDelete.product_name }}?</v-card-title
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -50,7 +50,7 @@
                     <v-btn
                       color="error"
                       text
-                      @click="confirmDelete(itemDelete.id)"
+                      @click="confirmDelete(itemDelete.uuid)"
                       >Delete</v-btn
                     >
                   </v-card-actions>
@@ -122,11 +122,14 @@ export default {
         )
         .then((response) => {
           if (response.success) {
-          this.product = response.data;
-          this.totalData = response.additionalEntity.totalData;
+            this.product = response.data;
+            this.totalData = response.additionalEntity.totalData;
 
-          let i = response.additionalEntity.number * itemsPerPage + 1;
-          this.product.map((product) => (product.number = i++));
+            let i = response.additionalEntity.number * itemsPerPage + 1;
+            this.product.map((product) => (product.number = i++));
+          } else {
+            this.product = [];
+            this.totalData = 0;
           }
         })
         .catch((error) => {

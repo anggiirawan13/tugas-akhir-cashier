@@ -107,7 +107,7 @@ export default {
   methods: {
     isWelcomeScreen() {
       if (
-        !localStorage.welcomeScreen &&
+        localStorage.welcomeScreen === "false" &&
         this.$router.currentRoute.path !== "/register" &&
         this.$router.currentRoute.path !== "/login"
       ) {

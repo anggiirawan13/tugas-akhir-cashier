@@ -30,12 +30,12 @@ export const actions = {
   },
   getProduct({ commit }) {
     return this.$axios.$get("/product").then((response) => {
-      commit("updateProduct", response.success ? response.result : [""]);
+      commit("updateProduct", response.success ? response.data : [""]);
     });
   },
   getCategory({ commit }) {
     return this.$axios.$get("/category").then((response) => {
-      commit("updateCategory", response.success ? response.result : [""]);
+      commit("updateCategory", response.success ? response.data : [""]);
     });
   },
   searchProduct({ commit }, product) {

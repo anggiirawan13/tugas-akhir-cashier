@@ -7,11 +7,14 @@ import com.be.app.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @CrossOrigin
 @RestController
@@ -22,12 +25,12 @@ public class ProductController {
     private ProductServiceImpl productService;
 
     @PostMapping
-    private BaseResponse saveProduct(@RequestPart ProductInsertRequest request, @RequestPart MultipartFile file) {
+    private BaseResponse saveProduct(@RequestPart("product") ProductInsertRequest request, @RequestPart("thumbnail") MultipartFile file) {
         return productService.saveProduct(request, file);
     }
 
     @PutMapping("/{uuid}")
-    private BaseResponse updateProduct(@PathVariable("uuid") String uuid, @RequestPart ProductUpdateRequest request, @RequestPart MultipartFile file) {
+    private BaseResponse updateProduct(@PathVariable("uuid") String uuid, @RequestPart("product") ProductUpdateRequest request, @RequestPart("thumbnail") MultipartFile file) {
         return productService.updateProductByUUID(uuid, request, file);
     }
 
@@ -47,16 +50,21 @@ public class ProductController {
     }
 
     @GetMapping("/download/{fileName:.+}")
-    public BaseResponse downloadFile(@PathVariable String fileName) {
-        File file = new File( "./" + fileName);
-        Resource resource;
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
         try {
-            resource = new UrlResource(file.toURI());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("File not found: " + fileName);
-        }
+            Path filePath = Paths.get("./src/main/java/com/be/assets/images").resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
 
-        return new BaseResponse(true, "DOWNLOAD_IMAGE_SUCCESSFULLY", resource);
+            if (!resource.exists()) {
+                throw new RuntimeException("File not found: " + fileName);
+            }
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("File not found: " + fileName, e);
+        }
     }
 
 }

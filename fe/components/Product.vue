@@ -27,7 +27,6 @@
                 <v-list-item-title>All</v-list-item-title>
               </v-list-item>
               <v-list-item
-                  v-if="category.length > 1"
                   v-for="(cat, index) in category"
                   :key="index"
                   :value="cat.id"
@@ -43,7 +42,7 @@
         </v-menu>
       </v-col>
     </v-row>
-    <v-row v-if="filteredProduct.length > 1">
+    <v-row>
       <v-col v-for="(product, index) in filteredProduct" :key="index" cols="2">
         <v-card
           @click="addToCart(product.id)"
@@ -52,18 +51,13 @@
         >
           <v-card-actions>
             <v-img
-              :src="require(`@/assets/images/product/${product.thumbnail}`)"
+              :src="product.thumbnail"
             ></v-img>
           </v-card-actions>
           <v-card-text align="center" class="product-name">
             {{ product.product_name }}
           </v-card-text>
         </v-card>
-      </v-col>
-    </v-row>
-    <v-row v-else>
-      <v-col cols="12">
-        <p>No products available.</p>
       </v-col>
     </v-row>
   </section>
@@ -144,7 +138,7 @@ export default {
       this.getProduct();
     }
 
-    if (this.category.length === 1) {
+    if (this.category.length <= 0) {
       this.getCategory();
     }
   },
