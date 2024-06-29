@@ -49,43 +49,49 @@ export default {
           icon: "mdi-view-dashboard-variant",
           title: "Dashboard",
           to: "/dashboard",
-          middlewares: ["authenticated"],
+          middleware: ["authenticated"],
         },
         {
           icon: "mdi-application",
           title: "Cashier App",
           to: "/",
-          middlewares: ["cashier"],
+          middleware: ["cashier"],
         },
         {
           icon: "mdi-coffee",
           title: "Product Management",
           to: "/product",
-          middlewares: ["admin"],
+          middleware: ["admin"],
         },
         {
           icon: "mdi-shape",
           title: "Category Management",
           to: "/category",
-          middlewares: ["admin"],
+          middleware: ["admin"],
         },
         {
           icon: "mdi-account",
           title: "User Management",
           to: "/user",
-          middlewares: ["admin"],
+          middleware: ["admin"],
+        },
+        {
+          icon: "mdi-view-dashboard-variant",
+          title: "Report",
+          to: "/report",
+          middleware: ["admin"],
         },
         {
           icon: "mdi-login",
           title: "Login",
           to: "/login",
-          middlewares: ["unauthenticated"],
+          middleware: ["unauthenticated"],
         },
         {
           icon: "mdi-logout",
           title: "Logout",
           to: "/logout",
-          middlewares: ["authenticated"],
+          middleware: ["authenticated"],
         },
       ],
       bottomMenu: [],
@@ -93,7 +99,7 @@ export default {
         {
           icon: "mdi-credit-card-check-outline",
           title: "Check Out",
-          middlewares: ["authenticated"],
+          middleware: ["cashier"],
         },
       ],
     };
@@ -118,17 +124,17 @@ export default {
       this.sideMenu = this.originalSideMenu.filter((item) => {
         if (this.authenticated) {
           return (
-            item.middlewares.includes("authenticated") ||
-            item.middlewares.includes(this.user.role)
+              item.middleware.includes("authenticated") ||
+              item.middleware.includes(this.user.role)
           );
         } else {
-          return item.middlewares.includes("unauthenticated");
+          return item.middleware.includes("unauthenticated");
         }
       });
 
       this.bottomMenu = this.originalBottomMenu.filter((item) => {
         if (this.authenticated) {
-          return item.middlewares.includes("authenticated");
+          return item.middleware.includes("authenticated");
         }
       });
     },

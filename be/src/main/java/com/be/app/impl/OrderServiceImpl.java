@@ -54,9 +54,12 @@ public class OrderServiceImpl implements OrderService {
             newOrder.setModifiedAt(dateNow);
             newOrder.setModifiedBy(SecurityContextHolder.getContext().getAuthentication().getName());
 
+            newOrder = orderRepository.save(newOrder);
+
             List<OrderItemEntity> listItem = new ArrayList<>();
             for (OrderItemRequest item : listOrderRequest.getItem()) {
                 OrderItemEntity itemEntity = new OrderItemEntity();
+                itemEntity.setOrderID(newOrder.getId());
                 itemEntity.setUuid(newOrder.getUuid());
                 itemEntity.setProductCode(item.getProductCode());
                 itemEntity.setQuantity(item.getQuantity());
@@ -66,7 +69,6 @@ public class OrderServiceImpl implements OrderService {
                 listItem.add(itemEntity);
             }
 
-            orderRepository.save(newOrder);
             orderDetailRepository.saveAll(listItem);
 
             return new BaseResponse(true, ResponseMessagesConst.INSERT_SUCCESS.toString(), null);

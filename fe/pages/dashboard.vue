@@ -13,7 +13,7 @@
 import { mapState } from 'vuex';
 
 export default({
-    middlewares: ['authenticated'],
+    middleware: ['authenticated'],
     head: {
         title: 'Dashboard'
     },

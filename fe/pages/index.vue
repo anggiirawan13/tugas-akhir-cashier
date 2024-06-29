@@ -15,7 +15,7 @@ import Product from "~/components/Product.vue";
 
 export default {
   components: {Order, Product},
-  middlewares: ["authenticated", "cashier"],
+  middleware: ["cashier"],
   head: {
     title: "App",
   },

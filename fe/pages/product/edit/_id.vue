@@ -74,7 +74,7 @@
 import login from "~/pages/login.vue";
 
 export default {
-  middlewares: ["authenticated"],
+  middleware: ["admin"],
   head: {
     title: "Edit Product",
   },

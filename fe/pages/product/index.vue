@@ -74,7 +74,7 @@
 
 <script>
 export default {
-  middlewares: ["authenticated"],
+  middleware: ["authenticated"],
   head: {
     title: "Product",
   },

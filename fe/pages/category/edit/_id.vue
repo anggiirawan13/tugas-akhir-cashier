@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  middlewares: ["authenticated"],
+  middleware: ["admin"],
   head: {
     title: "Edit Category",
   },

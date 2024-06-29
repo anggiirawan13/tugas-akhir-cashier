@@ -14,7 +14,7 @@
 import { mapMutations } from 'vuex';
 
 export default({
-  middlewares: ['authenticated'],
+  middleware: ['authenticated'],
   head: {
     title: 'Logout'
   },

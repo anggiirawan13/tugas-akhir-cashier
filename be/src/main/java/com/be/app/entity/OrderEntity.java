@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -37,5 +36,9 @@ public class OrderEntity extends BaseEntity {
     @Column(name = "service_charge", nullable = false, length = 11)
     @JsonProperty("service_charge")
     private double serviceCharge;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    private List<OrderItemEntity> items;
 
 }
