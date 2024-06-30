@@ -29,10 +29,10 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <p>
-        Kamu belum punya akun ?
-        <v-btn dark :color="$vuetify.theme.themes.dark.secondary"  to="/register" plain>Register</v-btn>
-      </p>
+<!--      <p>-->
+<!--        Kamu belum punya akun ?-->
+<!--        <v-btn dark :color="$vuetify.theme.themes.dark.secondary"  to="/register" plain>Register</v-btn>-->
+<!--      </p>-->
     </v-col>
   </v-row>
 </template>
