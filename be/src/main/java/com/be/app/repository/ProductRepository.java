@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
-    @Query(value = "SELECT * FROM product WHERE uuid = :uuid AND status = 'active'", nativeQuery = true)
+    @Query(value = "SELECT * FROM product WHERE uuid = :uuid", nativeQuery = true)
     ProductEntity findByUUID(@Param("uuid") String uuid);
 
     @Query(value = "SELECT * FROM product WHERE product_code LIKE %:search% OR product_name LIKE %:search% AND status = 'active'", nativeQuery = true)

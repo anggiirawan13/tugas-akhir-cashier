@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    @Query(value = "SELECT * FROM order_header WHERE uuid = :uuid AND status = 'active'", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_header WHERE uuid = :uuid", nativeQuery = true)
     OrderEntity findByUUID(@Param("uuid") String uuid);
 
-    @Query(value = "SELECT * FROM order_header WHERE username = :search AND status = 'active'", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_header WHERE username = :search", nativeQuery = true)
     List<OrderEntity> findByUsername(@Param("search") String search);
 
 }

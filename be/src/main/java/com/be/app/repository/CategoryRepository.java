@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    @Query(value = "SELECT * FROM category WHERE uuid = :uuid AND status = 'active'", nativeQuery = true)
+    @Query(value = "SELECT * FROM category WHERE uuid = :uuid", nativeQuery = true)
     CategoryEntity findByUUID(@Param("uuid") String uuid);
 
-    @Query(value = "SELECT * FROM category WHERE category_code = :category_code AND status = 'active'", nativeQuery = true)
+    @Query(value = "SELECT * FROM category WHERE category_code = :category_code", nativeQuery = true)
     CategoryEntity findByCategoryCode(@Param("category_code") String category_code);
 
 }
