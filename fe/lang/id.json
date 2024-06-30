@@ -7,9 +7,11 @@
     "WRONG_PASSWORD": "Password salah",
     "EMAIL_NOT_FOUND": "Email tidak ditemukan",
     "EMAIL_IS_EXIST": "Email sudah terdaftar",
-    "ADD_SUCCESS": "Data {title} berhasil ditambahkan",
+    "INSERT_SUCCESS": "Data {title} berhasil ditambahkan",
     "DELETE_SUCCESS": "Data {title} berhasil dihapus",
     "UPDATE_SUCCESS": "Data {title} berhasil diubah",
     "UPDATE_FAILED": "Data {title} gagal diubah",
+    "INSERT_FAILED": "Data {title} gagal ditambahkan",
+    "DELETE_FAILED": "Data {title} gagal dihapus",
     "LOGIN_FAILED": "User belum ada atau belum active"
 }

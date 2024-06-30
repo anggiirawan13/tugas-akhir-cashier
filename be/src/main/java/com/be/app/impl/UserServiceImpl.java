@@ -40,43 +40,47 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse userRegister(UserRegisterRequest request) {
         try {
-            UserEntity newUser = new UserEntity();
-            newUser.setUsername(request.getUsername());
-            newUser.setFullname(request.getFullname());
-            newUser.setEmail(request.getEmail());
-
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
-
-            newUser.setPassword(passEncode);
-            newUser.setUuid(UUID.randomUUID().toString());
-
-            if (request.getRole() != null && request.getRole().equalsIgnoreCase(RoleConst.ADMIN.toString())) {
-                newUser.setRole(RoleConst.ADMIN.toString());
+            UserEntity newUser = userRepository.findByUsername(request.getUsername());
+            if (NullEmptyChecker.isNotNullOrEmpty(newUser)) {
+                return new BaseResponse(false, ResponseMessagesConst.INSERT_FAILED.toString());
             } else {
-                newUser.setRole(RoleConst.CASHIER.toString());
+                newUser.setUsername(request.getUsername());
+                newUser.setFullname(request.getFullname());
+                newUser.setEmail(request.getEmail());
+
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
+
+                newUser.setPassword(passEncode);
+                newUser.setUuid(UUID.randomUUID().toString());
+
+                if (request.getRole() != null && request.getRole().equalsIgnoreCase(RoleConst.ADMIN.toString())) {
+                    newUser.setRole(RoleConst.ADMIN.toString());
+                } else {
+                    newUser.setRole(RoleConst.CASHIER.toString());
+                }
+
+                if (request.getStatus() != null && request.getStatus().equalsIgnoreCase(StatusConst.ACTIVE.toString())) {
+                    newUser.setStatus(StatusConst.ACTIVE.toString());
+                } else {
+                    newUser.setStatus(StatusConst.INACTIVE.toString());
+                }
+
+                Timestamp dateNow = DateHelper.getTimestampNow();
+
+                newUser.setCreatedAt(dateNow);
+                newUser.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+                newUser.setModifiedAt(dateNow);
+                newUser.setModifiedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+
+                UserEntity user = userRepository.save(newUser);
+
+                if (NullEmptyChecker.isNotNullOrEmpty(user)) {
+                    return new BaseResponse(true, ResponseMessagesConst.INSERT_SUCCESS.toString(), user);
+                }
+
+                return new BaseResponse(false, ResponseMessagesConst.INSERT_FAILED.toString());
             }
-
-            if (request.getStatus() != null && request.getStatus().equalsIgnoreCase(StatusConst.ACTIVE.toString())) {
-                newUser.setStatus(StatusConst.ACTIVE.toString());
-            } else {
-                newUser.setStatus(StatusConst.INACTIVE.toString());
-            }
-
-            Timestamp dateNow = DateHelper.getTimestampNow();
-
-            newUser.setCreatedAt(dateNow);
-            newUser.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-            newUser.setModifiedAt(dateNow);
-            newUser.setModifiedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-
-            UserEntity user = userRepository.save(newUser);
-
-            if (NullEmptyChecker.isNotNullOrEmpty(user)) {
-                return new BaseResponse(true, ResponseMessagesConst.INSERT_SUCCESS.toString(), user);
-            }
-
-            return new BaseResponse(false, ResponseMessagesConst.INSERT_FAILED.toString());
         } catch (Exception e) {
             return InternalServerErrorHandler.InternalServerError(e);
         }
@@ -151,40 +155,45 @@ public class UserServiceImpl implements UserService {
             if (NullEmptyChecker.isNullOrEmpty(newUser)) {
                 return new BaseResponse(false, ResponseMessagesConst.DATA_NOT_FOUND.toString());
             } else {
-                newUser.setUsername(request.getUsername());
-                newUser.setFullname(request.getFullname());
-                newUser.setEmail(request.getEmail());
-
-                if (!request.getPassword().equalsIgnoreCase(newUser.getPassword())) {
-                    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                    String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
-
-                    newUser.setPassword(passEncode);
-                }
-
-                if (request.getRole() != null && request.getRole().equalsIgnoreCase(RoleConst.ADMIN.toString())) {
-                    newUser.setRole(RoleConst.ADMIN.toString());
+                newUser = userRepository.findByUsername(request.getUsername());
+                if (NullEmptyChecker.isNotNullOrEmpty(newUser)) {
+                    return new BaseResponse(false, ResponseMessagesConst.UPDATE_FAILED.toString());
                 } else {
-                    newUser.setRole(RoleConst.CASHIER.toString());
-                }
+                    newUser.setUsername(request.getUsername());
+                    newUser.setFullname(request.getFullname());
+                    newUser.setEmail(request.getEmail());
 
-                if (request.getStatus() != null && request.getStatus().equalsIgnoreCase(StatusConst.ACTIVE.toString())) {
-                    newUser.setStatus(StatusConst.ACTIVE.toString());
-                } else {
-                    newUser.setStatus(StatusConst.INACTIVE.toString());
-                }
+                    if (!request.getPassword().equalsIgnoreCase(newUser.getPassword())) {
+                        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                        String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
 
-                Timestamp dateNow = DateHelper.getTimestampNow();
+                        newUser.setPassword(passEncode);
+                    }
 
-                newUser.setCreatedAt(dateNow);
-                newUser.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-                newUser.setModifiedAt(dateNow);
-                newUser.setModifiedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+                    if (request.getRole() != null && request.getRole().equalsIgnoreCase(RoleConst.ADMIN.toString())) {
+                        newUser.setRole(RoleConst.ADMIN.toString());
+                    } else {
+                        newUser.setRole(RoleConst.CASHIER.toString());
+                    }
 
-                UserEntity user = userRepository.save(newUser);
+                    if (request.getStatus() != null && request.getStatus().equalsIgnoreCase(StatusConst.ACTIVE.toString())) {
+                        newUser.setStatus(StatusConst.ACTIVE.toString());
+                    } else {
+                        newUser.setStatus(StatusConst.INACTIVE.toString());
+                    }
 
-                if (NullEmptyChecker.isNotNullOrEmpty(user)) {
-                    return new BaseResponse(true, ResponseMessagesConst.INSERT_SUCCESS.toString(), user);
+                    Timestamp dateNow = DateHelper.getTimestampNow();
+
+                    newUser.setCreatedAt(dateNow);
+                    newUser.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+                    newUser.setModifiedAt(dateNow);
+                    newUser.setModifiedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+
+                    UserEntity user = userRepository.save(newUser);
+
+                    if (NullEmptyChecker.isNotNullOrEmpty(user)) {
+                        return new BaseResponse(true, ResponseMessagesConst.INSERT_SUCCESS.toString(), user);
+                    }
                 }
             }
 

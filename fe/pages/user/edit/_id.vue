@@ -124,7 +124,9 @@ export default {
 
         await this.$axios
           .$put(`/user/${this.id}`, this.form)
-          .then(() => {
+          .then((res) => {
+            console.log(res)
+
             this.$router.push({
               name: `user___${this.$i18n.locale}`,
               params: {

@@ -139,12 +139,12 @@ export default {
                 'Content-Type': 'multipart/form-data'
               }
             })
-          .then(() => {
+          .then((res) => {
             this.$router.push({
               name: `product___${this.$i18n.locale}`,
               params: {
                 type: "success",
-                message: "ADD_SUCCESS",
+                message: res.messages,
                 title: this.form.product_code,
               },
             });
