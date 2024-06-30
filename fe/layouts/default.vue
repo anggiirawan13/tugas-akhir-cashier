@@ -58,7 +58,7 @@ export default {
           middleware: ["cashier"],
         },
         {
-          icon: "mdi-coffee",
+          icon: "mdi-tag",
           title: "Product Management",
           to: "/product",
           middleware: ["admin"],
@@ -76,19 +76,19 @@ export default {
           middleware: ["admin"],
         },
         {
-          icon: "mdi-view-dashboard-variant",
+          icon: "mdi-file",
           title: "Report",
           to: "/report",
           middleware: ["admin"],
         },
         {
-          icon: "mdi-login",
+          icon: "mdi-login-variant",
           title: "Login",
           to: "/login",
           middleware: ["unauthenticated"],
         },
         {
-          icon: "mdi-logout",
+          icon: "mdi-logout-variant",
           title: "Logout",
           to: "/logout",
           middleware: ["authenticated"],
