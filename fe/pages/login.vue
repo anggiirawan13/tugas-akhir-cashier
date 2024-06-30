@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    if (this.$route.params.message === "AUTH_IS_REQUIRED") {
+    if (this.$route.params.message) {
       this.message = this.$route.params.message;
     }
   },
@@ -83,6 +83,8 @@ export default {
             });
 
             this.$router.push("/dashboard");
+          } else {
+            this.message = response.messages
           }
         })
         .catch((error) => {

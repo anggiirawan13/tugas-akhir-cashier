@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse getUserByUUID(String uuid) {
         try {
-            UserEntity listUser = userRepository.findByUUID(uuid);
+            UserEntity listUser = userRepository.findByUuid(uuid);
 
             if (NullEmptyChecker.isNotNullOrEmpty(listUser)) {
                 return new BaseResponse(true, ResponseMessagesConst.DATA_FOUND.toString(), listUser);
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse updateUser(String uuid, UserUpdateRequest request) {
         try {
-            UserEntity newUser = userRepository.findByUUID(uuid);
+            UserEntity newUser = userRepository.findByUuid(uuid);
             if (NullEmptyChecker.isNullOrEmpty(newUser)) {
                 return new BaseResponse(false, ResponseMessagesConst.DATA_NOT_FOUND.toString());
             } else {
@@ -155,10 +155,12 @@ public class UserServiceImpl implements UserService {
                 newUser.setFullname(request.getFullname());
                 newUser.setEmail(request.getEmail());
 
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
+                if (!request.getPassword().equalsIgnoreCase(newUser.getPassword())) {
+                    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                    String passEncode = bCryptPasswordEncoder.encode(request.getPassword());
 
-                newUser.setPassword(passEncode);
+                    newUser.setPassword(passEncode);
+                }
 
                 if (request.getRole() != null && request.getRole().equalsIgnoreCase(RoleConst.ADMIN.toString())) {
                     newUser.setRole(RoleConst.ADMIN.toString());
@@ -195,7 +197,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseResponse deleteUser(String uuid) {
         try {
-            UserEntity user = userRepository.findByUUID(uuid);
+            UserEntity user = userRepository.findByUuid(uuid);
             if (NullEmptyChecker.isNullOrEmpty(user)) {
                 return new BaseResponse(false, ResponseMessagesConst.DATA_NOT_FOUND.toString());
             } else {

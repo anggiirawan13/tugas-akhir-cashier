@@ -22,7 +22,7 @@ public class JWTUtil {
     private UserRepository userRepository;
 
     public String generateToken(String username) {
-        UserEntity user = userRepository.findByUsername(username);
+        UserEntity user = userRepository.findByUsernameAndStatus(username, "active");
 
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("uuid", user.getUuid());

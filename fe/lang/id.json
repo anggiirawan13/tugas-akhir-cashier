@@ -10,5 +10,6 @@
     "ADD_SUCCESS": "Data {title} berhasil ditambahkan",
     "DELETE_SUCCESS": "Data {title} berhasil dihapus",
     "UPDATE_SUCCESS": "Data {title} berhasil diubah",
-    "UPDATE_FAILED": "Data {title} gagal diubah"
+    "UPDATE_FAILED": "Data {title} gagal diubah",
+    "LOGIN_FAILED": "User belum ada atau belum active"
 }

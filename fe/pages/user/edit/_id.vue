@@ -150,6 +150,7 @@ export default {
         .$get(`/user/${this.id}`, this.form)
         .then((response) => {
           const { data } = response;
+
           this.form.username = data.username;
           this.form.fullname = data.fullname;
           this.form.email = data.email;
