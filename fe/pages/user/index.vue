@@ -58,10 +58,10 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn dark :color="$vuetify.theme.themes.dark.secondary" :to="`/user/edit/${item.uuid}`" icon
+              <v-btn dark :color="$vuetify.theme.themes.dark.info" :to="`/user/edit/${item.uuid}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
-              <v-btn dark :color="$vuetify.theme.themes.dark.secondary" small icon @click="deleteItem(item)"
+              <v-btn dark :color="$vuetify.theme.themes.dark.warning" small icon @click="deleteItem(item)"
                 ><v-icon small>mdi-delete</v-icon></v-btn
               >
             </template>
