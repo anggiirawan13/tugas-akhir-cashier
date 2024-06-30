@@ -38,17 +38,20 @@
               v-model="form.password"
             />
             <v-select
-              v-model="form.role"
-              :items="roles"
-              label="Role"
-              :rules="rules.role"
+                v-model="form.role"
+                :items="roles"
+                label="Role"
+                :rules="rules.role"
+                :disabled="form.username === 'admin'"
             ></v-select>
             <v-select
-              v-model="form.status"
-              :items="status"
-              label="Status"
-              :rules="rules.status"
+                v-model="form.status"
+                :items="status"
+                label="Status"
+                :rules="rules.status"
+                :disabled="form.username === 'admin'"
             ></v-select>
+
           </v-form>
         </v-card-text>
         <v-card-actions>
