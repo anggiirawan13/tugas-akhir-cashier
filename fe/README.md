@@ -1,68 +1,36 @@
-# cashier-mevn
+# Cashier App
+
+## Specification
+- NodeJS version 16.20.2
+- NPM version 8.19.4
+
+## Installation
+- Clone the repository:
+  ```bash
+  git clone https://github.com/anggiirawan13/tugas-akhir-cashier.git
+  ```
+
+## Setup
+- Open the `fe` folder in your text editor.
+- Rename the `sample.env` file to `.env`.
 
 ## Build Setup
 
 ```bash
-# install dependencies
+# Install node_modules
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Run the app in development mode
 $ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+### Notes:
+- Make sure you have Node.js version 16.20.2 and NPM version 8.19.4 installed on your machine before proceeding.
+- Adjust the configuration and environment variables in the `.env` file as needed for your local setup.
+- The `npm run dev` command starts the application in development mode.
+```
 
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+### Notes:
+- Pastikan kamu memiliki Node.js versi 16.20.2 dan NPM versi 8.19.4 terinstal di komputer kamu sebelum melanjutkan.
+- Sesuaikan konfigurasi dan variabel lingkungan di file `.env` sesuai kebutuhan untuk setup lokal kamu.
+- Perintah `npm run dev` digunakan untuk menjalankan aplikasi dalam mode pengembangan.
