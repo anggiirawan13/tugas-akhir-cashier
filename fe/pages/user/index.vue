@@ -32,7 +32,7 @@
             :options.sync="options"
             :search.sync="search"
             :footer-props="{
-              itemsPerPageOptions: [10, 25, 50, 75, 100],
+              itemsPerPageOptions: [10, 25, 50, 75, 100]
             }"
           >
             <template v-slot:top>
@@ -61,7 +61,7 @@
               <v-btn dark :color="$vuetify.theme.themes.dark.info" :to="`/user/edit/${item.uuid}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
-              <v-btn dark :color="$vuetify.theme.themes.dark.warning" small icon @click="deleteItem(item)"
+              <v-btn v-if="item.username !== 'admin'" dark :color="$vuetify.theme.themes.dark.warning" small icon @click="deleteItem(item)"
                 ><v-icon small>mdi-delete</v-icon></v-btn
               >
             </template>

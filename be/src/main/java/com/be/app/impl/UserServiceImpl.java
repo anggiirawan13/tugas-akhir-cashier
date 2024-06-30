@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
             if (NullEmptyChecker.isNotNullOrEmpty(newUser)) {
                 return new BaseResponse(false, ResponseMessagesConst.INSERT_FAILED.toString());
             } else {
+                newUser = new UserEntity();
                 newUser.setUsername(request.getUsername());
                 newUser.setFullname(request.getFullname());
                 newUser.setEmail(request.getEmail());

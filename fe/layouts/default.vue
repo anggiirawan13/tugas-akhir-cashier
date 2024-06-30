@@ -58,15 +58,15 @@ export default {
           middleware: ["cashier"],
         },
         {
-          icon: "mdi-tag",
-          title: "Product Management",
-          to: "/product",
-          middleware: ["admin"],
-        },
-        {
           icon: "mdi-shape",
           title: "Category Management",
           to: "/category",
+          middleware: ["admin"],
+        },
+        {
+          icon: "mdi-tag",
+          title: "Product Management",
+          to: "/product",
           middleware: ["admin"],
         },
         {
