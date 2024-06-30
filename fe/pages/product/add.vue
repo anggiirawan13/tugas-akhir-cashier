@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark>ADD USER</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark>ADD PRODUCT</v-toolbar>
         <v-card-text>
           <v-breadcrumbs :items="breadcrumbs" class="pa-0"></v-breadcrumbs>
           <v-form ref="form">
