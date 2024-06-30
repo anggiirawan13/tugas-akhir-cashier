@@ -2,7 +2,7 @@
   <v-row class="frame-content">
     <v-col cols="10" offset="1">
       <v-card class="my-3">
-        <v-toolbar color="primary" dark>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark>
           User
           <v-spacer></v-spacer>
           <v-text-field
@@ -18,7 +18,7 @@
           <div class="d-flex mb-4">
             <v-breadcrumbs :items="breadcrumbs" class="pa-0" />
             <v-spacer></v-spacer>
-            <v-btn to="/user/add" color="primary" elevation="3" small
+            <v-btn dark :color="$vuetify.theme.themes.dark.secondary" to="/user/add" elevation="3" small
               >Add <v-icon right>mdi-plus-circle</v-icon></v-btn
             >
           </div>
@@ -44,10 +44,10 @@
                   >
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="cancelDelete"
+                    <v-btn dark :color="$vuetify.theme.themes.dark.accent" text @click="cancelDelete"
                       >Cancel</v-btn
                     >
-                    <v-btn
+                    <v-btn dark :color="$vuetify.theme.themes.dark.secondary"
                       color="error"
                       text
                       @click="confirmDelete(itemDelete.uuid)"
@@ -58,10 +58,10 @@
               </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-btn :to="`/user/edit/${item.uuid}`" icon
+              <v-btn dark :color="$vuetify.theme.themes.dark.secondary" :to="`/user/edit/${item.uuid}`" icon
                 ><v-icon small>mdi-pencil</v-icon></v-btn
               >
-              <v-btn small icon @click="deleteItem(item)"
+              <v-btn dark :color="$vuetify.theme.themes.dark.secondary" small icon @click="deleteItem(item)"
                 ><v-icon small>mdi-delete</v-icon></v-btn
               >
             </template>
@@ -74,7 +74,7 @@
 
 <script>
 export default {
-  middleware: ["admin"],
+  middleware: ["authenticated"],
   head: {
     title: "User",
   },

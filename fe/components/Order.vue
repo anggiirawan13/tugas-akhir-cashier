@@ -8,20 +8,18 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
             <v-list-item-subtitle
               >{{ currency(item.price) }} X
-              <v-btn
+              <v-btn dark :color="$vuetify.theme.themes.dark.secondary"
                 icon
                 class="px-0"
-                color="primary"
                 x-small
                 @click="decrement(item.id)"
               >
                 <v-icon>mdi-chevron-down</v-icon>
               </v-btn>
               {{ item.quantity }}
-              <v-btn
+              <v-btn dark :color="$vuetify.theme.themes.dark.secondary"
                 icon
                 class="px-0"
-                color="primary"
                 x-small
                 @click="increment(item.id)"
               >
@@ -30,7 +28,7 @@
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn icon color="error" x-small @click="remove(item.id)">
+            <v-btn dark :color="$vuetify.theme.themes.dark.secondary" icon color="error" x-small @click="remove(item.id)">
               <v-icon>mdi-close-thick</v-icon>
             </v-btn>
             {{ currency(itemTotal(item.price, item.quantity)) }}
@@ -78,13 +76,14 @@
           </v-list-item-action>
         </v-list-item>
       </v-list>
-      <v-btn color="primary" block @click="checkOut()">Check Out</v-btn>
+      <v-btn dark :color="$vuetify.theme.themes.dark.secondary" block @click="checkOut()">Check Out</v-btn>
     </v-col>
   </v-row>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
+import Swal from 'sweetalert2';
 
 export default {
   methods: {
@@ -106,10 +105,10 @@ export default {
         service_charge: this.additionals[1].value,
         item: [],
       };
-
+      console.log(this.cartItems)
       for (let i = 0; i < this.cartItems.length; i++) {
         const temp = {
-          product_code: this.cartItems[i].product_code,
+          product_id: parseInt(this.cartItems[i].id),
           quantity: this.cartItems[i].quantity,
           total_price: this.cartItems[i].price * this.cartItems[i].quantity,
           price: this.cartItems[i].price,
@@ -117,15 +116,31 @@ export default {
 
         data.item.push(temp);
       }
-
+      console.log(data)
       this.$axios
-        .$post("/order", data)
-        .then((resp) => {
-          console.log(resp);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .$post('/order', data)
+          .then(resp => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Order Created!',
+              text: 'Your order has been successfully created.',
+              confirmButtonText: 'OK'
+            }).then(() => {
+                  window.location.reload();
+                });
+          })
+          .catch(err => {
+            console.error(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'An error occurred while creating the order.',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              window.location.reload();
+            });
+          });
+
     },
   },
   computed: {

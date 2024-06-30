@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-btn @click="generatePDF" color="primary" class="mb-2"
-    >Download PDF
+    <v-btn dark :color="$vuetify.theme.themes.dark.secondary" @click="generatePDF" class="mb-2">
+      Download PDF
     </v-btn>
     <v-card>
       <v-card-title>Laporan Pembelian</v-card-title>
@@ -13,8 +13,10 @@
               <th class="text-left">No</th>
               <th class="text-left">Tanggal Pembelian</th>
               <th class="text-left">Nama Barang</th>
-              <th class="text-left">Total Pembelian</th>
+              <th class="text-left">Harga</th>
+              <th class="text-left">Jumlah</th>
               <th class="text-left">Total Harga</th>
+              <th class="text-left">Total</th>
             </tr>
             </thead>
             <tbody>
@@ -23,11 +25,28 @@
               <td>{{ formatDate(order.created_at) }}</td>
               <td>
                 <template v-for="(item, idx) in order.items">
-                  {{ item.product.product_name }} ({{ item.quantity }})
+                  {{ item.product.product_name }}
                   <br />
                 </template>
               </td>
-              <td>{{ totalQuantity(order.items) }}</td>
+              <td>
+                <template v-for="(item, idx) in order.items">
+                  {{ item.price }}
+                  <br />
+                </template>
+              </td>
+              <td>
+                <template v-for="(item, idx) in order.items">
+                  {{ item.quantity }}
+                  <br />
+                </template>
+              </td>
+              <td>
+                <template v-for="(item, idx) in order.items">
+                  {{ item.quantity * item.price }}
+                  <br />
+                </template>
+              </td>
               <td>{{ totalCost(order.items) }}</td>
             </tr>
             </tbody>
@@ -65,19 +84,21 @@ export default {
     generatePDF() {
       const documentDefinition = {
         content: [
-          { text: 'Laporan Pembelian', style: 'header' },
+          {text: 'Laporan Pembelian', style: 'header'},
           '\n',
           {
             table: {
               headerRows: 1,
-              widths: ['auto', 'auto', '*', 'auto', 'auto'],
+              widths: ['auto', 'auto', '*', 'auto', 'auto', 'auto', 'auto'],
               body: [
-                ['No', 'Tanggal Pembelian', 'Nama Barang', 'Total Pembelian', 'Total Harga'],
+                ['No', 'Tanggal Pembelian', 'Nama Barang', 'Harga', 'Jumlah', 'Total Harga', 'Total'],
                 ...this.orders.map((order, index) => [
                   index + 1,
                   this.formatDate(order.created_at),
                   this.formatItems(order.items),
-                  this.totalQuantity(order.items),
+                  this.formatItemPrices(order.items),
+                  this.formatItemQuantities(order.items),
+                  this.formatItemTotalPrices(order.items),
                   this.totalCost(order.items)
                 ])
               ]
@@ -95,14 +116,20 @@ export default {
       pdfMake.createPdf(documentDefinition).download("report.pdf");
     },
     formatDate(dateString) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
       return new Date(dateString).toLocaleDateString('id-ID', options);
     },
     formatItems(items) {
-      return items.map(item => `${item.product.product_name} (${item.quantity})`).join('\n');
+      return items.map(item => `${item.product.product_name}`).join('\n');
     },
-    totalQuantity(items) {
-      return items.reduce((total, item) => total + item.quantity, 0);
+    formatItemPrices(items) {
+      return items.map(item => item.price.toFixed(2)).join('\n');
+    },
+    formatItemQuantities(items) {
+      return items.map(item => item.quantity).join('\n');
+    },
+    formatItemTotalPrices(items) {
+      return items.map(item => (item.quantity * item.price).toFixed(2)).join('\n');
     },
     totalCost(items) {
       return items.reduce((total, item) => total + item.quantity * item.price, 0);

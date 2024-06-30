@@ -18,7 +18,7 @@ public class OrderItemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_id", nullable = false, length = 64, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false)
     @JsonProperty("order_id")
     private Long orderID;
 
@@ -26,9 +26,9 @@ public class OrderItemEntity {
     @JsonProperty("uuid")
     private String uuid;
 
-    @Column(name = "product_code", nullable = false, length = 20)
-    @JsonProperty("product_code")
-    private String productCode;
+    @Column(name = "product_id", nullable = false, length = 20)
+    @JsonProperty("product_id")
+    private Long productID;
 
     @Column(name = "quantity", length = 4)
     @JsonProperty("quantity")
@@ -42,8 +42,7 @@ public class OrderItemEntity {
     @JsonProperty("price")
     private double price;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", insertable = false, updatable = false)
     private ProductEntity product;
-
 }

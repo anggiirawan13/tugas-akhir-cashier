@@ -25,7 +25,7 @@
       </v-container>
     </v-main>
 
-    <v-bottom-navigation horizontal height="10vh" fixed color="primary" app>
+    <v-bottom-navigation horizontal height="10vh" fixed :color="$vuetify.theme.themes.dark.primary"  app>
       <v-app-bar-nav-icon
         @click.stop="sideDrawer = !sideDrawer"
         :ripple="false"
@@ -99,7 +99,7 @@ export default {
         {
           icon: "mdi-credit-card-check-outline",
           title: "Check Out",
-          middleware: ["cashier"],
+          middleware: ["authenticated"],
         },
       ],
     };
@@ -146,8 +146,14 @@ export default {
     authenticated() {
       this.filterMenu();
     },
+    cashier() {
+      this.filterMenu()
+    }
   },
   mounted() {
+    if (this.$router.currentRoute.path === "/" && !this.authenticated) {
+      return this.$router.push("/login")
+    }
     if (this.$router.currentRoute.path === "/") {
       this.isWelcomeScreen();
     }

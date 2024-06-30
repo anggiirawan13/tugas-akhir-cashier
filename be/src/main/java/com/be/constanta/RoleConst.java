@@ -12,11 +12,5 @@ public enum RoleConst {
         public String toString() {
             return "cashier";
         }
-    },
-    EMPLOYEE {
-        @Override
-        public String toString() {
-            return "employee";
-        }
     }
 }

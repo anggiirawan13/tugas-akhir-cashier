@@ -37,8 +37,16 @@ public class OrderEntity extends BaseEntity {
     @JsonProperty("service_charge")
     private double serviceCharge;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
     private List<OrderItemEntity> items;
 
+    public List<OrderItemEntity> getItems() {
+        return items;
+    }
+
+    @Transient
+    public void setItems(List<OrderItemEntity> items) {
+        this.items = items;
+    }
 }

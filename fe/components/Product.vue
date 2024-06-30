@@ -19,7 +19,7 @@
       <v-col cols="2">
         <v-menu>
           <template v-slot:activator="{ on: category }">
-            <v-btn v-on="category" color="primary"> Category </v-btn>
+            <v-btn dark :color="$vuetify.theme.themes.dark.secondary"  v-on="category"> Category </v-btn>
           </template>
           <v-list>
             <v-list-item-group>

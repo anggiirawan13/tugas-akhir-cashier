@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="10" offset="1">
       <v-card class="mb-2">
-        <v-toolbar color="primary" dark>ADD USER</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark>ADD USER</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" dark>{{
             $t(message)
@@ -57,9 +57,9 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-btn to="/user" color="secondary">Back</v-btn>
+          <v-btn dark :color="$vuetify.theme.themes.dark.secondary" to="/user" color="secondary">Back</v-btn>
           <v-spacer />
-          <v-btn @click="doSave" color="primary" :loading="btnSaveDisable"
+          <v-btn dark :color="$vuetify.theme.themes.dark.secondary" @click="doSave"":loading="btnSaveDisable"
             >Save
           </v-btn>
         </v-card-actions>
@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  middleware: ["admin"],
+  middleware: ["authenticated"],
   head: {
     title: "Add User",
   },

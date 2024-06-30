@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="10" offset="1" md="4" offset-md="4">
       <v-card class="mb-2">
-        <v-toolbar color="primary" dark>REGISTER</v-toolbar>
+        <v-toolbar :color="$vuetify.theme.themes.dark.primary" dark>REGISTER</v-toolbar>
         <v-card-text>
           <v-alert v-if="message" color="red lighten-2" dark>{{
             $t(message)
@@ -47,15 +47,14 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
+          <v-btn dark :color="$vuetify.theme.themes.dark.secondary"
             @click="doRegister"
-            color="primary"
             :loading="btnRegisterDisable"
             >Register
           </v-btn>
         </v-card-actions>
       </v-card>
-      <p>Kamu sudah punya akun ? <v-btn to="/login" plain>Login</v-btn></p>
+      <p>Kamu sudah punya akun ? <v-btn dark :color="$vuetify.theme.themes.dark.secondary"  to="/login" plain>Login</v-btn></p>
     </v-col>
   </v-row>
 </template>

@@ -8,8 +8,8 @@ import lombok.NonNull;
 @NonNull
 public class OrderItemRequest {
 
-    @JsonProperty("product_code")
-    private String productCode;
+    @JsonProperty("product_id")
+    private Long productID;
 
     @JsonProperty("quantity")
     private int quantity;
