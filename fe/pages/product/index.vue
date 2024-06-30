@@ -45,7 +45,7 @@
                   <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn dark :color="$vuetify.theme.themes.dark.secondary" text @click="cancelDelete"
-                      >" :</v-btn
+                      >Cancel</v-btn
                     >
                     <v-btn dark :color="$vuetify.theme.themes.dark.secondary"
                       color="error"
