@@ -82,7 +82,7 @@ export default {
       ],
       btnSaveDisable: false,
       message: "",
-      roles: ["admin", "cashier", "employee"],
+      roles: ["admin", "cashier"],
       status: ["active", "inactive"],
       form: {
         username: "",
