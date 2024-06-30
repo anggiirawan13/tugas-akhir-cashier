@@ -131,14 +131,25 @@ export default {
         await this.$axios
           .$post("/user/register", this.form)
           .then((res) => {
-            this.$router.push({
-              name: `user___${this.$i18n.locale}`,
-              params: {
-                type: "success",
-                message: res.messages,
-                fullname: this.form.fullname,
-              },
-            });
+            if (res.success) {
+              this.$router.push({
+                name: `user___${this.$i18n.locale}`,
+                params: {
+                  type: "success",
+                  message: res.messages,
+                  fullname: this.form.fullname,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: `user___${this.$i18n.locale}`,
+                params: {
+                  type: "error",
+                  message: res.messages,
+                  fullname: this.form.fullname,
+                },
+              });
+            }
           })
           .catch((error) => {
             this.message = error.response.data.message;

@@ -125,7 +125,7 @@ export default {
               title: 'Order Created!',
               text: 'Your order has been successfully created.',
               confirmButtonText: 'OK'
-            }).then(() => {
+            }).then((res) => {
                   window.location.reload();
                 });
           })
@@ -136,7 +136,7 @@ export default {
               title: 'Oops...',
               text: 'An error occurred while creating the order.',
               confirmButtonText: 'OK'
-            }).then(() => {
+            }).then((res) => {
               window.location.reload();
             });
           });

@@ -87,14 +87,25 @@ export default {
         await this.$axios
           .$post("/category", this.form)
           .then((res) => {
-            this.$router.push({
-              name: `category___${this.$i18n.locale}`,
-              params: {
-                type: "success",
-                message: res.messages,
-                title: this.form.category_code,
-              },
-            });
+            if (res.success) {
+              this.$router.push({
+                name: `category___${this.$i18n.locale}`,
+                params: {
+                  type: "success",
+                  message: res.messages,
+                  title: this.form.category_name,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: `category___${this.$i18n.locale}`,
+                params: {
+                  type: "error",
+                  message: res.messages,
+                  title: this.form.category_name,
+                },
+              });
+            }
           })
           .catch((error) => {
             this.message = error.response.data.message;

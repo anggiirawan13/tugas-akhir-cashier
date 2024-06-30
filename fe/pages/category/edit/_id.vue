@@ -91,15 +91,26 @@ export default {
 
         await this.$axios
           .$put(`/category/${this.id}`, this.form)
-          .then(() => {
-            this.$router.push({
-              name: `category___${this.$i18n.locale}`,
-              params: {
-                type: "success",
-                message: "UPDATE_SUCCESS",
-                title: this.form.category_code,
-              },
-            });
+          .then((res) => {
+            if (res.success) {
+              this.$router.push({
+                name: `category___${this.$i18n.locale}`,
+                params: {
+                  type: "success",
+                  message: res.messages,
+                  title: this.form.category_name,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: `category___${this.$i18n.locale}`,
+                params: {
+                  type: "error",
+                  message: res.messages,
+                  title: this.form.category_name,
+                },
+              });
+            }
           })
           .catch(() => {
             this.$router.push({

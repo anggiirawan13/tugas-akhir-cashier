@@ -125,16 +125,25 @@ export default {
         await this.$axios
           .$put(`/user/${this.id}`, this.form)
           .then((res) => {
-            console.log(res)
-
-            this.$router.push({
-              name: `user___${this.$i18n.locale}`,
-              params: {
-                type: "success",
-                message: "UPDATE_SUCCESS",
-                fullname: this.form.fullname,
-              },
-            });
+            if (res.success) {
+              this.$router.push({
+                name: `user___${this.$i18n.locale}`,
+                params: {
+                  type: "success",
+                  message: res.messages,
+                  fullname: this.form.fullname,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: `user___${this.$i18n.locale}`,
+                params: {
+                  type: "error",
+                  message: res.messages,
+                  fullname: this.form.fullname,
+                },
+              });
+            }
           })
           .catch(() => {
             this.$router.push({

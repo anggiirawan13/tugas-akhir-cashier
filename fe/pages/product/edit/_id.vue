@@ -151,15 +151,26 @@ export default {
                 'Content-Type': 'multipart/form-data'
               }
             })
-          .then(() => {
-            this.$router.push({
-              name: `product___${this.$i18n.locale}`,
-              params: {
-                type: "success",
-                message: "UPDATE_SUCCESS",
-                title: this.form.title,
-              },
-            });
+          .then((res) => {
+            if (res.success) {
+              this.$router.push({
+                name: `product___${this.$i18n.locale}`,
+                params: {
+                  type: "success",
+                  message: res.messages,
+                  title: this.form.product_name,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: `product___${this.$i18n.locale}`,
+                params: {
+                  type: "error",
+                  message: res.messages,
+                  title: this.form.product_name,
+                },
+              });
+            }
           })
           .catch(() => {
             this.$router.push({
