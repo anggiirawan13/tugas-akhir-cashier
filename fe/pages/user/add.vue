@@ -59,7 +59,7 @@
         <v-card-actions>
           <v-btn dark :color="$vuetify.theme.themes.dark.secondary" to="/user" color="secondary">Back</v-btn>
           <v-spacer />
-          <v-btn dark :color="$vuetify.theme.themes.dark.secondary" @click="doSave"":loading="btnSaveDisable"
+          <v-btn dark :color="$vuetify.theme.themes.dark.secondary" @click="doSave" :loading="btnSaveDisable"
             >Save
           </v-btn>
         </v-card-actions>
